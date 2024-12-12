@@ -1,15 +1,40 @@
 [versions]
 agp = "8.7.3"
-kotlin = "2.0.0"
-coreKtx = "1.10.1"
+kotlin = "2.0.21"
+coreKtx = "1.15.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.8.0"
-composeBom = "2024.04.01"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.10.01"
+
+ktorClientAndroid = "2.3.3"
+ktorClientCore = "2.3.3"
+ktorClientLogging = "2.3.3"
+ktorSerializationKotlinxJson  = "2.3.3"
+
+ksp = "2.0.21-1.0.25"
+hilt= "2.51.1"
+hiltNavCompose = "1.2.0"
+
 
 [libraries]
+
+#Hilt
+hilt = {module = "com.google.dagger:hilt-android", version.ref = "hilt"}
+hilt-compiler = {module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt"}
+hilt-compose = {module  = "androidx.hilt:hilt-navigation-compose", version.ref="hiltNavCompose"}
+
+
+#Ktor
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
+
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -29,4 +54,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}
+hilt = {id = "com.google.dagger.hilt.android", version.ref = "hilt"}
+serialization = {id = "org.jetbrains.kotlin.plugin.serialization",  version.ref = "kotlin"  }
 
