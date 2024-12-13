@@ -14,4 +14,11 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+
+    fun `isNetworkAvailable returns true when network is available`(){
+
+    }
+
 }
+

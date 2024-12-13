@@ -58,6 +58,10 @@ dependencies {
     implementation(libs.hilt.compose)
     ksp(libs.hilt.compiler)
 
+    //test
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.mockito.kotlin)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
