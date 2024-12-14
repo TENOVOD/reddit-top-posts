@@ -9,13 +9,11 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.10.01"
 
-ktorClientAndroid = "2.3.3"
-ktorClientCore = "2.3.3"
-ktorClientLogging = "2.3.3"
-ktorSerializationKotlinxJson  = "2.3.3"
+ktorVersion = "2.3.3"
+
 
 ksp = "2.0.21-1.0.25"
-hilt= "2.51.1"
+hilt = "2.51.1"
 hiltNavCompose = "1.2.0"
 
 junitJupiter = "5.8.1"
@@ -24,18 +22,18 @@ mockito = "5.4.0"
 [libraries]
 
 #Hilt
-hilt = {module = "com.google.dagger:hilt-android", version.ref = "hilt"}
-hilt-compiler = {module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt"}
-hilt-compose = {module  = "androidx.hilt:hilt-navigation-compose", version.ref="hiltNavCompose"}
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavCompose" }
 
 
 #Ktor
-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
-
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorVersion" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref="ktorVersion" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -52,14 +50,14 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
-mockito-kotlin = { group="org.mockito.kotlin", name = "mockito-kotlin",version.ref = "mockito" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
-ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}
-hilt = {id = "com.google.dagger.hilt.android", version.ref = "hilt"}
-serialization = {id = "org.jetbrains.kotlin.plugin.serialization",  version.ref = "kotlin"  }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
