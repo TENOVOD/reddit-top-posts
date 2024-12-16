@@ -16,7 +16,9 @@ object ItemMapper {
             description = itemDto.description,
             countOfComments = itemDto.numberComments,
             thumbnail = itemDto.thumbnail,
-            stockImage = itemDto.url
+            stockImage = itemDto.url,
+            isVideo = itemDto.isVideo,
+            videoUrl = itemDto.media?.redditVideo?.fallbackUrl
         )
     }
 

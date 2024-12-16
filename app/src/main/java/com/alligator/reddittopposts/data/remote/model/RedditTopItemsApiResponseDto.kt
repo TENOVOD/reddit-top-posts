@@ -32,7 +32,22 @@ data class RedditTopItemsApiResponseDto(
                 val numberComments:Int?,
                 val thumbnail:String?,
                 val url: String?, //high-res image
-            )
+                val media:Media?,
+                @SerialName("is_video")
+                val isVideo:Boolean?
+            ){
+                @Serializable
+                data class Media(
+                    @SerialName("reddit_video")
+                    val redditVideo:RedditVideo?
+                ){
+                    @Serializable
+                    data class RedditVideo(
+                        @SerialName("fallback_url")
+                        val fallbackUrl:String?
+                    )
+                }
+            }
         }
     }
 }
