@@ -1,16 +1,16 @@
 package com.alligator.reddittopposts.presentation.viewmodel
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alligator.reddittopposts.domain.model.Post
 import com.alligator.reddittopposts.domain.usecase.GetNextPosts
 import com.alligator.reddittopposts.domain.usecase.GetPreviousPosts
+import com.alligator.reddittopposts.utils.network.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,30 +20,47 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getNextPosts: GetNextPosts,
-    private val getPreviousPosts: GetPreviousPosts
+    private val getPreviousPosts: GetPreviousPosts,
+    private val connectivityObserver: ConnectivityObserver
+
 ) : ViewModel() {
 
-    private val _posts = MutableStateFlow<List<Post>>(emptyList())
+    val networkStatus = connectivityObserver.status
+
+    private val _posts = MutableStateFlow<List<Post>>(emptyList<Post>())
     val posts: StateFlow<List<Post>> = _posts
     var isLoading = mutableStateOf(false)
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val fetchedPosts = getNextPosts.invoke() ?: emptyList()
-            _posts.value = fetchedPosts
-            Log.d("MAINVIEWMODEL", posts.value.toString())
-
-        }
+        connectivityObserver.start()
+        loadNextPost()
     }
 
     fun loadNextPost(){
         viewModelScope.launch(Dispatchers.IO) {
-            isLoading.value=true
-            val fetchedPosts = getNextPosts.invoke() ?: emptyList()
-            _posts.value+=fetchedPosts
-            Log.d("MAINVIEWMODEL", posts.value.toString())
-            isLoading.value=false
+            if (!isLoading.value){
+                isLoading.value=true
+                while (networkStatus.value!=ConnectivityObserver.Status.Available){
+                    delay(100)
+                }
+
+                val fetchedPosts = getNextPosts.invoke() ?: emptyList()
+
+                //Check for duplicates
+                val newPosts = fetchedPosts.filter { newPost ->
+                    _posts.value.none { it.stockImage == newPost.stockImage }
+                }
+
+                _posts.value+=newPosts
+                isLoading.value=false
+            }
+
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        connectivityObserver.stop()
     }
 
 }

@@ -1,6 +1,6 @@
 package com.alligator.reddittopposts.presentation.ui.screen.mainscreen
 
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
@@ -10,30 +10,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.alligator.reddittopposts.presentation.ui.screen.mainscreen.components.IndeterminateCircularIndicator
+import com.alligator.reddittopposts.presentation.ui.screen.mainscreen.components.NoInternetConnection
 import com.alligator.reddittopposts.presentation.ui.screen.mainscreen.components.PostCard
 import com.alligator.reddittopposts.presentation.viewmodel.MainViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.alligator.reddittopposts.utils.network.ConnectivityObserver
+
 
 @Composable
 fun MainScreen(
@@ -42,9 +35,12 @@ fun MainScreen(
 
     val posts by vm.posts.collectAsState()
     val isLoading by vm.isLoading
-
-
-
+    val networkStatus by vm.networkStatus.collectAsState()
+    AnimatedVisibility(networkStatus!=ConnectivityObserver.Status.Available) {
+        NoInternetConnection {
+            vm.loadNextPost()
+        }
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) {paddingValues->
