@@ -45,6 +45,11 @@ android {
 
 dependencies {
 
+    //coil
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.4")
+
+
     //ktor
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.android)
@@ -60,8 +65,6 @@ dependencies {
 
     //test
     testImplementation(libs.junit.jupiter)
-    testImplementation(libs.mockito.kotlin)
-    testImplementation(libs.ktor.client.mock)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

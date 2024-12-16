@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.alligator.reddittopposts.presentation.ui.screen.mainscreen.MainScreen
 import com.alligator.reddittopposts.presentation.ui.theme.RedditTopPostsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,12 +28,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RedditTopPostsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+
+                MainScreen()
+
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
             }
         }
     }
@@ -42,9 +46,9 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = Modifier.fillMaxSize()
-    ) { paddingValues ->
+    ) { innerPadding ->
         Surface(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(innerPadding)
         ) {
             Box(modifier=Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
                 Column() {

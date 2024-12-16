@@ -7,9 +7,9 @@ interface RedditApiRepository {
 
     suspend fun getFirstItems(): RedditTopItemsApiResponseDto
 
-    suspend fun getNextItems(afterIndex:String, count:Int): RedditTopItemsApiResponseDto
+    suspend fun getNextItems(afterIndex:String): RedditTopItemsApiResponseDto
 
-    suspend fun getPreviousItems(beforeIndex:String,count: Int): RedditTopItemsApiResponseDto
+    suspend fun getPreviousItems(beforeIndex:String): RedditTopItemsApiResponseDto
 
     suspend fun getAuthorIcon(nickname:String): RedditUserApiResponseDto
 }

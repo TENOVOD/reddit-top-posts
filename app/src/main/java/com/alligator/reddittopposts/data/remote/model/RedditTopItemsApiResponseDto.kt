@@ -21,10 +21,13 @@ data class RedditTopItemsApiResponseDto(
         ){
             @Serializable
             data class ChildData(
-                val subreddit:String?,
+                @SerialName("subreddit_name_prefixed")
+                val subredditNameWithPrefix:String?,
                 val author:String?,
                 val title:String?,
                 val created:String?,
+                @SerialName("url_overridden_by_dest")
+                val description:String?,
                 @SerialName("num_comments")
                 val numberComments:Int?,
                 val thumbnail:String?,
