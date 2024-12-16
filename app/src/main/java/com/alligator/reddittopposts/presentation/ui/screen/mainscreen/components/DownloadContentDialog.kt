@@ -1,27 +1,21 @@
 package com.alligator.reddittopposts.presentation.ui.screen.mainscreen.components
 
-import android.provider.MediaStore.Downloads
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
@@ -34,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import coil3.compose.AsyncImage
@@ -58,7 +51,9 @@ fun DownloadContentDialog(isActive: Boolean, post: Post, onDismiss: () -> Unit) 
                     .clip(RoundedCornerShape(12.dp))
             ) {
                 Column(
-                    Modifier.fillMaxWidth().padding(vertical = 6.dp, horizontal = 6.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp, horizontal = 6.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
@@ -92,38 +87,59 @@ fun DownloadContentDialog(isActive: Boolean, post: Post, onDismiss: () -> Unit) 
                         contentScale = ContentScale.FillWidth
                     )
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        DialogButton(
-                            modifier = Modifier.fillMaxWidth(0.5f),
-                            text = "Open",
-                            onAction = {
-                                openInBrowser(context, url = post.stockImage!!)
-                            })
-                        DialogButton(text = "Download", onAction = {
+                    ButtonsPartOfDialog(
+                        onOpen = {
+                            openInBrowser(context, url = post.stockImage!!)
+                        },
+                        onDownload = {
                             CoroutineScope(Dispatchers.IO).launch {
-                                val uri =  saveImageToGallery(context, imageUrl = post.stockImage?:"")
-                                withContext(Dispatchers.Main){
-                                    if(uri!=null){
-                                        Toast.makeText(context, "Image already downloaded!", Toast.LENGTH_LONG).show()
-                                    }else{
-                                        Toast.makeText(context, "Sorry, I can't download this image :(", Toast.LENGTH_LONG).show()
+                                val uri =
+                                    saveImageToGallery(context, imageUrl = post.stockImage ?: "")
+                                withContext(Dispatchers.Main) {
+                                    if (uri != null) {
+                                        Toast.makeText(
+                                            context,
+                                            "Image already downloaded!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    } else {
+                                        Toast.makeText(
+                                            context,
+                                            "Sorry, I can't download this image :(",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                     }
                                 }
                             }
 
-                        })
-                    }
+                        }
+
+                    )
 
                 }
             }
 
         }
     }
+}
+
+@Composable
+private fun ButtonsPartOfDialog(onOpen: () -> Unit, onDownload: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        DialogButton(
+            modifier = Modifier.fillMaxWidth(0.5f),
+            text = "Open",
+            onAction = onOpen
+        )
+        DialogButton(text = "Download", onAction = onDownload)
+
+    }
+
 }
 
 @Composable

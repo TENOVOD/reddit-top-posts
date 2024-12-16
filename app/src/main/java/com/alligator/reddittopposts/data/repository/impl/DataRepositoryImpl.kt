@@ -2,10 +2,8 @@ package com.alligator.reddittopposts.data.repository.impl
 
 import com.alligator.reddittopposts.data.mappers.ItemMapper
 import com.alligator.reddittopposts.data.remote.api.RedditApiService
-import com.alligator.reddittopposts.data.remote.model.RedditUserApiResponseDto
 import com.alligator.reddittopposts.data.repository.interfaces.DataRepository
 import com.alligator.reddittopposts.domain.model.Post
-import io.ktor.utils.io.errors.IOException
 import javax.inject.Inject
 
 /**

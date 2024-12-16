@@ -1,15 +1,12 @@
 package com.alligator.reddittopposts.presentation.ui.screen.mainscreen.components
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,14 +15,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,9 +43,7 @@ import com.alligator.reddittopposts.utils.openInBrowser
 @Composable
 fun PostCard(post: Post) {
     var isActiveDialog by remember { mutableStateOf(false) }
-    DownloadContentDialog(isActive = isActiveDialog, post = post) {
-        isActiveDialog = false
-    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -66,6 +58,12 @@ fun PostCard(post: Post) {
 
     }
 
+    /**
+     * Dialog when we can open image or video and download (only image)
+     */
+    DownloadContentDialog(isActive = isActiveDialog, post = post) {
+        isActiveDialog = false
+    }
 
 }
 

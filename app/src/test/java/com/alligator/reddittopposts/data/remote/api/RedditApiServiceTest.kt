@@ -71,7 +71,7 @@ class RedditApiServiceTest {
             service.getNextItems(afterIndex = afterIndex!!)
 
         //get previous page (10 items) by before index
-        numberOfItemsAlreadySeen-=10
+
         val beforeIndex = afterResponse.data?.before
         val beforeResponse = service.getPreviousItems(beforeIndex = beforeIndex!!)
         val expectedCountOfFetchingItems = 10

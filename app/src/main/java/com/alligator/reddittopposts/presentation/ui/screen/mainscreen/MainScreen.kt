@@ -30,20 +30,16 @@ import com.alligator.reddittopposts.utils.network.ConnectivityObserver
 
 @Composable
 fun MainScreen(
-    vm: MainViewModel= hiltViewModel()
-){
+    vm: MainViewModel = hiltViewModel()
+) {
 
     val posts by vm.posts.collectAsState()
     val isLoading by vm.isLoading
     val networkStatus by vm.networkStatus.collectAsState()
-    AnimatedVisibility(networkStatus!=ConnectivityObserver.Status.Available) {
-        NoInternetConnection {
-            vm.loadNextPost()
-        }
-    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize()
-    ) {paddingValues->
+    ) { paddingValues ->
 
         Surface(
             modifier = Modifier.padding(paddingValues)
@@ -52,17 +48,28 @@ fun MainScreen(
                 modifier = Modifier.padding(vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(posts){
+                items(posts) {
                     PostCard(it)
-                    Spacer(Modifier.fillMaxWidth().height(1.dp).alpha(0.2f).background(MaterialTheme.colorScheme.scrim))
+                    Spacer(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .alpha(0.2f)
+                            .background(MaterialTheme.colorScheme.scrim)
+                    )
                 }
-                item{
+                item {
                     LaunchedEffect(posts.size) {
                         vm.loadNextPost()
                     }
-                    IndeterminateCircularIndicator(isLoading=isLoading)
+                    IndeterminateCircularIndicator(isLoading = isLoading)
                 }
             }
+        }
+    }
+    AnimatedVisibility(networkStatus != ConnectivityObserver.Status.Available) {
+        NoInternetConnection {
+            vm.loadNextPost()
         }
     }
 }
